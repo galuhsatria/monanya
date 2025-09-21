@@ -77,7 +77,7 @@ export default function Page() {
             <div className="flex flex-col gap-2">
               <div className="flex justify-between text-sm">
                 <label htmlFor="password">Password</label>
-                <Link href="/forgot-password" className="text-accent ">
+                <Link href="/forget-password" className="text-accent ">
                   Lupa Passsword?
                 </Link>
               </div>

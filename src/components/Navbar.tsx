@@ -20,7 +20,7 @@ export default function Navbar() {
           <Image src={theme === 'dark' ? '/monanya-logo-white.png' : '/monanya-logo-black.png'} width={100} height={30} alt="Monanya Logo" unoptimized />
           <Badge className="bg-green-500/10 text-green-500 rounded-full text-xs h-max font-bold">beta</Badge>
         </div>
-        <ul className="menu flex items-center gap-8 max-md:hidden">
+        {/* <ul className="menu flex items-center gap-8 max-md:hidden">
           {menu.map((menu, index) => (
             <li key={index}>
               <Link href={menu.link} className={`flex group items-center gap-2 text-md font-bold  hover:text-accent transition-colors duration-200 ${pathname === menu.link && 'text-accent'}`}>
@@ -29,7 +29,7 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
         <div className="flex items-center gap-4">
           <Link href={'/'} target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-github" viewBox="0 0 16 16">
@@ -40,7 +40,7 @@ export default function Navbar() {
             {theme === 'dark' ? <Moon /> : <Sun />}
           </Button>
           <Link href="/login">
-            <Button className="bg-accent hover:bg-[#27945f] rounded-full font-bold text-white shadow-sm shadow-[#2da86d9c]" size={'lg'}>
+            <Button className="bg-accent hover:bg-[#27945f] rounded-full font-bold text-white shadow-sm" size={'lg'}>
               Login
             </Button>
           </Link>

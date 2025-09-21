@@ -3,7 +3,8 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import * as schema from '../db/schema';
 import { createAuthMiddleware, APIError } from 'better-auth/api';
-import { sendingEmailVerification } from '@/components/email/email-verification';
+import { sendingEmailVerification } from '@/components/email/verification';
+import { sendingResetPassword } from '@/components/email/reset-password';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -13,6 +14,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendingResetPassword({ url: url, name: user.name, email: user.email });
+    },
   },
   emailVerification: {
     autoSignInAfterVerification: true,
