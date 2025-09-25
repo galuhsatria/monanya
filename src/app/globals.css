@@ -127,6 +127,10 @@
   color: #2da86d !important;
 }
 
+.layout {
+  @apply max-w-6xl mx-auto px-4;
+}
+
 .border-accent {
   @apply border-[#2da86d];
 }

@@ -5,9 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import { Toaster } from "@/components/ui/sonner"
 
 const manrope = Manrope({
-  variable: '--font-manrope-sans',
   subsets: ['latin'],
-  weight: ['200', '400', '500', '600'],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.variable} antialiased`}>
+      <body className={`${manrope.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
