@@ -2,20 +2,19 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
-import { CircleCheck, Eye, EyeClosed, LoaderCircle, TriangleAlert } from 'lucide-react';
+import { Eye, EyeClosed, LoaderCircle } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 type UserLogin = {
-  email: string;
   name: string;
+  email: string;
   password: string;
 };
 export default function Page() {
@@ -48,7 +47,7 @@ export default function Page() {
   const signIn = async (provider: string) => {
     await authClient.signIn.social({
       provider: provider,
-      callbackURL: process.env.NEXT_PUBLIC_BASE_URL + '/dashboard',
+      callbackURL: process.env.NEXT_PUBLIC_BASE_URL + '/home',
     });
   };
 
