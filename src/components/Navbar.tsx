@@ -93,15 +93,21 @@ export default function Navbar({ session }: SessionProps) {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1">
-                  <UserRound /> Profil
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1">
-                  <CircleQuestionMark /> Pertanyaan
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-3 cursor-pointer">
-                  <ImageIcon /> Pengaturan OG
-                </DropdownMenuItem>
+                <Link href="/profile">
+                  <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1">
+                    <UserRound /> Profil
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/home">
+                  <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1">
+                    <CircleQuestionMark /> Pertanyaan
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/">
+                  <DropdownMenuItem className="flex items-center gap-3 cursor-pointer">
+                    <ImageIcon /> Pengaturan OG
+                  </DropdownMenuItem>
+                </Link>
 
                 <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1 group hover:!text-red-500 transition-colors duration-200" onClick={handleLogout}>
                   <LogOutIcon className="group-hover:!text-red-500 text-muted-foreground transition-colors duration-200" /> Logout

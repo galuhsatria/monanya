@@ -6,7 +6,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { nextCookies } from 'better-auth/next-js';
 import * as schema from '../db/schema';
-import { username } from 'better-auth/plugins';
+import { username,lastLoginMethod } from 'better-auth/plugins';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -36,7 +36,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  plugins: [nextCookies(), username()],
+  plugins: [nextCookies(), username(), lastLoginMethod() ],
   databaseHooks: {
     user: {
       create: {
