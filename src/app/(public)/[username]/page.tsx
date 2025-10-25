@@ -23,7 +23,7 @@ export default async function Page({ params }: UsernameProps) {
 
   return (
     <div className="max-w-xl mx-auto px-4">
-      <UserNav />
+      <UserNav username={username}/>
       <div className="flex flex-col items-center mt-6 ">
         {user.image ? (
           <Image src={user.image} alt={user.name} width={100} height={100} className="rounded-full mb-4" />
@@ -42,7 +42,7 @@ export default async function Page({ params }: UsernameProps) {
         )}
         <p className="font-bold">@{username}</p>
       </div>
-      <p className="text-center font-bold text-xl mt-2"> Bertanya ke {user.name}</p>
+      <p className="text-center font-bold text-xl my-2"> Bertanya ke {user.name}</p>
       <QuestionForm userId={user.id} />
       <Link href="/login" className="flex justify-center text-xs mt-4">
         <Button variant={'outline'} className="rounded-full">

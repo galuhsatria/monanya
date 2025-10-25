@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
-import './globals.css';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { Toaster } from "@/components/ui/sonner"
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
+import "./globals.css";
 
 const manrope = Manrope({
-  subsets: ['latin'],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: 'Monanya',
-  description: 'Sebuah platform untuk mengirim pertanyaan secara anonimus',
+  title: "Monanya",
+  description: "Sebuah platform untuk mengirim pertanyaan secara anonimus",
 };
 
 export default function RootLayout({
@@ -21,10 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${manrope.className} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
-        <Toaster position='top-center' richColors expand theme='light'  closeButton/>
+        <Toaster position="top-center" expand />
       </body>
     </html>
   );

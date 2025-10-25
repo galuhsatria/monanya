@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Manrope:200,300,regular,500,600,700,800);
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,7 +119,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
   }
 }
 
@@ -135,6 +135,22 @@
   @apply border-[#2da86d];
 }
 
-.bg-accent {
+@utility bg-accent-secondary {
   @apply bg-[#2da86d];
+}
+
+[data-sonner-toast][data-type="success"] svg {
+  @apply !text-green-500;
+}
+
+[data-sonner-toast][data-type="error"] svg {
+  @apply !text-red-500;
+}
+
+[data-sonner-toast][data-type="warning"] svg {
+  @apply !text-yellow-500;
+}
+
+[data-sonner-toast][data-type="info"] svg {
+  @apply !text-blue-500;
 }

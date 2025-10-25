@@ -6,7 +6,9 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { nextCookies } from 'better-auth/next-js';
 import * as schema from '../db/schema';
-import { username,lastLoginMethod } from 'better-auth/plugins';
+import { username, lastLoginMethod } from 'better-auth/plugins';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -36,7 +38,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  plugins: [nextCookies(), username(), lastLoginMethod() ],
+  plugins: [nextCookies(), username(), lastLoginMethod()],
   databaseHooks: {
     user: {
       create: {
@@ -112,3 +114,16 @@ export const auth = betterAuth({
     }),
   },
 });
+
+export const getCurrentUser = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session || !session.user) {
+    redirect('/login');
+    throw new Error('Not authenticated');
+  }
+
+  return session?.user;
+};

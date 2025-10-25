@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
-import { HatGlasses, Send } from 'lucide-react';
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { HatGlasses, Send } from "lucide-react";
 
 type Question = {
   question: string;
@@ -15,31 +15,34 @@ export default function QuestionForm({ userId }: { userId: string }) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, errors },
-  } = useForm<Question>();
+    formState: { isSubmitting, errors, isValid },
+  } = useForm<Question>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<Question> = async (data) => {
     try {
-      const question = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/questions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const question = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/questions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId,
+            question: data.question,
+          }),
         },
-        body: JSON.stringify({
-          userId,
-          question: data.question,
-        }),
-      });
+      );
 
       if (!question.ok) {
-        throw new Error('Failed to submit question');
+        throw new Error("Failed to submit question");
       } else {
-        toast.success('Pertanyaan berhasil dikirim!');
+        toast.success("Pertanyaan berhasil dikirim!");
       }
 
       reset();
     } catch (err) {
-      toast.error('Gagal mengirim pertanyaan. Silakan coba lagi.');
+      toast.error("Gagal mengirim pertanyaan. Silakan coba lagi.");
       console.error(err);
     }
   };
@@ -51,22 +54,28 @@ export default function QuestionForm({ userId }: { userId: string }) {
           Pertanyaan
         </label>
         <Textarea
-          {...register('question', {
+          {...register("question", {
             required: true,
             minLength: {
               value: 50,
-              message: 'Pertanyaan minimal 50 karakter',
+              message: "Pertanyaan minimal 50 karakter",
             },
           })}
           className="w-full p-2 border rounded h-32 mt-2"
           placeholder="Tulis pertanyaanmu..."
+          disabled={isSubmitting}
         />
         <p className="flex text-sm items-center text-zinc-400 gap-2 mt-2">
           <HatGlasses size={16} /> Pertanyaan akan dikirim secara anonim
         </p>
         <p className="text-sm text-red-500">{errors.question?.message}</p>
-        <Button type="submit" disabled={isSubmitting} className="mt-4 bg-accent rounded-full w-full" size={'lg'}>
-          <Send /> {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
+        <Button
+          type="submit"
+          disabled={isSubmitting || !isValid}
+          className="mt-4 bg-accent rounded-full w-full"
+          size={"lg"}
+        >
+          <Send /> {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
         </Button>
       </form>
     </div>

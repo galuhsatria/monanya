@@ -43,7 +43,7 @@ export default function Navbar({ session }: SessionProps) {
               Discover
             </Button>
           </Link>
-          <Button variant="ghost" className="rounded-full" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          <Button variant="ghost" size={'sm'} className="rounded-full !h-9" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? <Moon /> : <Sun />}
           </Button>
           {!isAuthenticated ? (

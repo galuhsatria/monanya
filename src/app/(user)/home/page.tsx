@@ -1,23 +1,46 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import React from 'react';
+import QuestionDone from "@/components/QuestionDone";
+import QuestionPending from "@/components/QuestionPending";
+import Share from "@/components/Share";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <div className="layout mt-10">
       <Tabs defaultValue="belum-terjawab" className="rounded-full">
         <div className="flex items-center justify-between">
-          <h2 className='text-xl font-bold'>Pertanyaan</h2>
-          <TabsList className="rounded-full">
-            <TabsTrigger value="belum-terjawab" className="rounded-full">
+          <h2 className="text-xl font-bold flex gap-2 items-center">
+            Pertanyaan{" "}
+            {session?.user.username && (
+              <Share align="start" username={session?.user.username} />
+            )}
+          </h2>
+          <TabsList className="rounded-full cursor-pointer">
+            <TabsTrigger
+              value="belum-terjawab"
+              className="rounded-full cursor-pointer"
+            >
               Belum Terjawab
             </TabsTrigger>
-            <TabsTrigger value="sudah-terjawab" className="rounded-full">
+            <TabsTrigger
+              value="sudah-terjawab"
+              className="rounded-full cursor-pointer"
+            >
               Sudah Terjawab
             </TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="belum-terjawab">HELLLnah</TabsContent>
-        <TabsContent value="sudah-terjawab">OKEE</TabsContent>
+        <TabsContent value="belum-terjawab" className="">
+          <QuestionPending />
+        </TabsContent>
+        <TabsContent value="sudah-terjawab">
+          <QuestionDone />
+        </TabsContent>
       </Tabs>
     </div>
   );
