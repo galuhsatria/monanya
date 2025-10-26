@@ -6,7 +6,7 @@ const fetcher = (...args: Parameters<typeof fetch>): Promise<any> =>
 
 export function useQuestion({ status }: { status: string }) {
   const { data, error, isLoading } = useSWR(
-    `/api/questions/${status}`,
+    `/api/questions/status/${status}`,
     fetcher,
   );
 

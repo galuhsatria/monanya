@@ -139,6 +139,10 @@
   @apply bg-[#2da86d];
 }
 
+.bg-accent {
+  @apply bg-[#2da86d];
+}
+
 [data-sonner-toast][data-type="success"] svg {
   @apply !text-green-500;
 }
