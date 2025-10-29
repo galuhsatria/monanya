@@ -1,17 +1,7 @@
 "use client";
 
-import { useQuestion } from "@/hooks/use-api";
-import React, { useRef, useState } from "react";
-import {
-  LoaderIcon,
-  MailQuestion,
-  MailQuestionMark,
-  Download,
-  LoaderCircle,
-} from "lucide-react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -19,7 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "./ui/button";
 import {
   Select,
   SelectContent,
@@ -27,12 +16,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useQuestion } from "@/hooks/use-api";
+import { authClient } from "@/lib/auth-client";
 import * as htmlToImage from "html-to-image";
+import {
+  Check,
+  Download,
+  LoaderCircle,
+  LoaderIcon,
+  MailQuestion,
+  MailQuestionMark,
+} from "lucide-react";
 import Image from "next/image";
-import { Badge } from "./ui/badge";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { CopyButton } from "./CopyButton";
-import { authClient } from "@/lib/auth-client";
+import { Button } from "./ui/button";
 
 interface Question {
   id: string;
@@ -43,7 +42,7 @@ interface Question {
 export default function QuestionPending() {
   const { data, isError, isLoading } = useQuestion({ status: "pending" });
   const [questionIsDoneLoading, setQuestionIsDoneLoading] = useState(false);
-  const { data: session, error } = authClient.useSession();
+  const { data: session } = authClient.useSession();
   console.log(session);
 
   const [theme, setTheme] = useState({
@@ -110,16 +109,20 @@ export default function QuestionPending() {
     return (
       <div className="flex flex-col items-center text-center py-5  mt-4">
         <div className="bg-secondary p-2 rounded-md mb-2">
-          <MailQuestionMark className="text-black" />
+          <MailQuestionMark className="" />
         </div>
         <p className="font-medium text-sm text-zinc-600">
           Belum ada pertanyaan. Mulai dengan bagikan tautan akun Anda.
         </p>
         {session ? (
-          <div className="flex text-black items-center text-sm gap-2 bg-secondary py-1.5 px-3 mt-4 rounded-md">
-            <p>{`https://monanya.vercel.app/${session.user.username}`}</p>
+          <div className="flex items-center text-sm gap-2 bg-secondary py-1.5 px-3 mt-4 rounded-md">
+            <p>
+              {process.env.NEXT_PUBLIC_BASE_URL + `/${session.user.username}`}
+            </p>
             <CopyButton
-              content={`https://monanya.vercel.app/${session.user.username}`}
+              content={
+                process.env.NEXT_PUBLIC_BASE_URL + `/${session.user.username}`
+              }
               copyMessage="Tautan berhasil disalin"
             />
           </div>
@@ -247,7 +250,9 @@ export default function QuestionPending() {
                   </div>
 
                   <div
-                    ref={(el) => (refs.current[q.id] = el)}
+                    ref={(el) => {
+                      refs.current[q.id] = el;
+                    }}
                     style={{
                       backgroundColor: theme.backgroundColor,
                       color: theme.color,
@@ -298,11 +303,6 @@ export default function QuestionPending() {
               </DialogHeader>
               <DialogFooter className="flex justify-between items-center">
                 <div className="flex gap-2">
-                  <DialogClose asChild>
-                    <Button variant="secondary" className="rounded-full">
-                      Tutup
-                    </Button>
-                  </DialogClose>
                   <Button
                     onClick={() => handleQuestionDone(q.id)}
                     className="bg-accent-secondary min-w-52 hover:bg-accent-secondary hover:brightness-110 rounded-full text-white"
@@ -310,7 +310,9 @@ export default function QuestionPending() {
                     {questionIsDoneLoading ? (
                       <LoaderCircle className="animate-spin" />
                     ) : (
-                      "Tandai Sudah Dijawab"
+                      <p className="flex items-center gap-2">
+                        Tandai Sudah Dijawab <Check />
+                      </p>
                     )}
                   </Button>
                 </div>

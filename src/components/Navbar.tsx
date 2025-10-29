@@ -1,16 +1,31 @@
-'use client';
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { authClient } from '@/lib/auth-client';
-import { CircleQuestionMark, Compass, ImageIcon, LogOutIcon, Moon, Sun, UserRound } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { authClient } from "@/lib/auth-client";
+import {
+  CircleQuestionMark,
+  Compass,
+  ImageIcon,
+  LogOutIcon,
+  Moon,
+  Sun,
+  UserRound,
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
 type Session = typeof authClient.$Infer.Session;
 
@@ -24,7 +39,7 @@ export default function Navbar({ session }: SessionProps) {
 
   const handleLogout = async () => {
     await authClient.signOut();
-    router.push('/');
+    router.push("/");
     router.refresh();
   };
 
@@ -32,23 +47,47 @@ export default function Navbar({ session }: SessionProps) {
     <header className="border-b border-border">
       <nav className="layout py-4 flex justify-between items-center">
         <div className="flex gap-1">
-          <Image src={theme === 'dark' ? '/monanya-logo-white.png' : '/monanya-logo-black.png'} width={100} height={30} alt="Monanya Logo" unoptimized />
-          <Badge className="bg-green-500/10 text-green-500 rounded-full text-xs h-max font-bold">beta</Badge>
+          <Image
+            src={
+              theme === "dark"
+                ? "/monanya-logo-white.png"
+                : "/monanya-logo-black.png"
+            }
+            width={100}
+            height={30}
+            alt="Monanya Logo"
+            unoptimized
+          />
+          <Badge className="bg-green-500/10 text-green-500 rounded-full text-xs h-max font-bold">
+            beta
+          </Badge>
         </div>
 
         <div className="flex items-center gap-4">
           <Link href="/discover">
-            <Button variant={'ghost'} className="font-medium rounded-full" size={'lg'}>
+            <Button
+              variant={"ghost"}
+              className="font-medium rounded-full"
+              size={"lg"}
+            >
               <Compass />
               Discover
             </Button>
           </Link>
-          <Button variant="ghost" size={'sm'} className="rounded-full !h-9" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            {theme === 'dark' ? <Moon /> : <Sun />}
+          <Button
+            variant="ghost"
+            size={"sm"}
+            className="rounded-full !h-9"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? <Moon /> : <Sun />}
           </Button>
           {!isAuthenticated ? (
             <Link href="/login">
-              <Button className="bg-accent hover:bg-[#27945f] rounded-full font-medium text-white shadow-sm" size={'lg'}>
+              <Button
+                className="bg-accent hover:bg-[#27945f] rounded-full font-medium text-white shadow-sm"
+                size={"lg"}
+              >
                 Login
               </Button>
             </Link>
@@ -61,9 +100,9 @@ export default function Navbar({ session }: SessionProps) {
                   ) : (
                     <AvatarFallback>
                       {session.user.name
-                        ?.split(' ')
+                        ?.split(" ")
                         .map((n) => n[0])
-                        .join('')
+                        .join("")
                         .toUpperCase()}
                     </AvatarFallback>
                   )}
@@ -79,9 +118,9 @@ export default function Navbar({ session }: SessionProps) {
                       ) : (
                         <AvatarFallback>
                           {session.user.name
-                            ?.split(' ')
+                            ?.split(" ")
                             .map((n) => n[0])
-                            .join('')
+                            .join("")
                             .toUpperCase()}
                         </AvatarFallback>
                       )}
@@ -93,9 +132,9 @@ export default function Navbar({ session }: SessionProps) {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href="/profile">
+                <Link href="/account-settings">
                   <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1">
-                    <UserRound /> Profil
+                    <UserRound /> Pengaturan Akun
                   </DropdownMenuItem>
                 </Link>
                 <Link href="/home">
@@ -109,8 +148,12 @@ export default function Navbar({ session }: SessionProps) {
                   </DropdownMenuItem>
                 </Link>
 
-                <DropdownMenuItem className="flex items-center gap-3 cursor-pointer my-1 group hover:!text-red-500 transition-colors duration-200" onClick={handleLogout}>
-                  <LogOutIcon className="group-hover:!text-red-500 text-muted-foreground transition-colors duration-200" /> Logout
+                <DropdownMenuItem
+                  className="flex items-center gap-3 cursor-pointer my-1 group hover:!text-red-500 transition-colors duration-200"
+                  onClick={handleLogout}
+                >
+                  <LogOutIcon className="group-hover:!text-red-500 text-muted-foreground transition-colors duration-200" />{" "}
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

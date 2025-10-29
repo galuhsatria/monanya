@@ -5,10 +5,10 @@ const fetcher = (...args: Parameters<typeof fetch>): Promise<any> =>
   fetch(...args).then((res) => res.json());
 
 export function useQuestion({ status }: { status: string }) {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `/api/questions/status/${status}`,
     fetcher,
   );
 
-  return { data, isLoading, isError: !!error };
+  return { data, isLoading, isError: !!error, mutate };
 }
