@@ -10,9 +10,9 @@ import { notFound } from "next/navigation";
 export default async function Page({
   params,
 }: {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }) {
-  const { username } = params;
+  const { username } = await params;
   const user = await User.getUserByUsername(username);
 
   if (!user) {
