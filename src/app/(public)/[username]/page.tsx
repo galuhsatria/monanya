@@ -8,7 +8,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { username } = await params;
+  const { username } = params;
   const user = await User.getUserByUsername(username);
 
   if (!user) {
