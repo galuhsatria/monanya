@@ -1,19 +1,13 @@
-import QuestionForm from '@/components/QuestionForm';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import UserNav from '@/components/UserNav';
-import { User } from '@/lib/db/queries';
-import { Dot } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import React from 'react';
+import QuestionForm from "@/components/QuestionForm";
+import { Button } from "@/components/ui/button";
+import UserNav from "@/components/UserNav";
+import { User } from "@/lib/db/queries";
+import { Dot } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-type UsernameProps = {
-  params: Promise<{ username: string }>;
-};
-
-export default async function Page({ params }: UsernameProps) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const { username } = await params;
   const user = await User.getUserByUsername(username);
 
@@ -23,18 +17,24 @@ export default async function Page({ params }: UsernameProps) {
 
   return (
     <div className="max-w-xl mx-auto px-4">
-      <UserNav username={username}/>
+      <UserNav username={username} />
       <div className="flex flex-col items-center mt-6 ">
         {user.image ? (
-          <Image src={user.image} alt={user.name} width={100} height={100} className="rounded-full mb-4" />
+          <Image
+            src={user.image}
+            alt={user.name}
+            width={100}
+            height={100}
+            className="rounded-full mb-4"
+          />
         ) : (
           <div>
             <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center mb-3">
               <span className="text-3xl text-white font-bold">
                 {user.name
-                  ?.split(' ')
+                  ?.split(" ")
                   .map((n) => n[0])
-                  .join('')
+                  .join("")
                   .toUpperCase()}
               </span>
             </div>
@@ -42,10 +42,13 @@ export default async function Page({ params }: UsernameProps) {
         )}
         <p className="font-bold">@{username}</p>
       </div>
-      <p className="text-center font-bold text-xl my-2"> Bertanya ke {user.name}</p>
+      <p className="text-center font-bold text-xl my-2">
+        {" "}
+        Bertanya ke {user.name}
+      </p>
       <QuestionForm userId={user.id} />
       <Link href="/login" className="flex justify-center text-xs mt-4">
-        <Button variant={'outline'} className="rounded-full">
+        <Button variant={"outline"} className="rounded-full">
           Join {user.name} on Monanya!
         </Button>
       </Link>
