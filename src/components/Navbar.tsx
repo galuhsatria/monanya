@@ -64,7 +64,7 @@ export default function Navbar({ session }: SessionProps) {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link href="/discover">
+          {/*<Link href="/discover">
             <Button
               variant={"ghost"}
               className="font-medium rounded-full"
@@ -73,7 +73,7 @@ export default function Navbar({ session }: SessionProps) {
               <Compass />
               Discover
             </Button>
-          </Link>
+          </Link>*/}
           <Button
             variant="ghost"
             size={"sm"}
