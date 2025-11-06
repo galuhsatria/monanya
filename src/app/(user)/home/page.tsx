@@ -11,16 +11,16 @@ export default async function Page() {
   });
 
   return (
-    <div className="layout mt-10">
+    <div className="layout mt-10 min-h-[100vh]">
       <Tabs defaultValue="belum-terjawab" className="rounded-full">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-4">
           <h2 className="text-xl font-bold flex gap-2 items-center">
             Pertanyaan{" "}
             {session?.user.username && (
               <Share align="start" username={session?.user.username} />
             )}
           </h2>
-          <TabsList className="rounded-full cursor-pointer">
+          <TabsList className="rounded-full cursor-pointer ml-auto max-sm:ml-0 max-sm:self-end">
             <TabsTrigger
               value="belum-terjawab"
               className="rounded-full cursor-pointer"

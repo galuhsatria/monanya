@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { useQuestion } from "@/hooks/use-api";
 import { authClient } from "@/lib/auth-client";
-import {
-  LoaderCircle,
-  LoaderIcon,
-  MailQuestionMark,
-  Trash,
-} from "lucide-react";
+import { LoaderCircle, MailQuestionMark, Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { CopyButton } from "./CopyButton";
@@ -93,7 +88,7 @@ export default function MessageDone() {
   if (isLoading)
     return (
       <div className="flex w-full justify-center py-5 mt-4">
-        <LoaderIcon className="animate-spin text-zinc-400" size={18} />
+        <LoaderCircle className="animate-spin text-zinc-400" size={18} />
       </div>
     );
 

@@ -30,6 +30,7 @@ export default async function Page({
             width={100}
             height={100}
             className="rounded-full mb-4"
+            unoptimized
           />
         ) : (
           <div>
@@ -51,7 +52,7 @@ export default async function Page({
         Bertanya ke {user.name}
       </p>
       <QuestionForm userId={user.id} />
-      <Link href="/login" className="flex justify-center text-xs mt-4">
+      <Link href="/register" className="flex justify-center text-xs mt-4">
         <Button variant={"outline"} className="rounded-full">
           Join {user.name} on Monanya!
         </Button>
@@ -61,7 +62,7 @@ export default async function Page({
           Laporkan Pengguna
         </Link>
         <Dot />
-        <Link href="/report-user" className="hover:text-accent">
+        <Link href="/privasi" className="hover:text-accent">
           Privasi
         </Link>
       </div>

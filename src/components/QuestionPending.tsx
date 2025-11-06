@@ -23,7 +23,6 @@ import {
   Check,
   Download,
   LoaderCircle,
-  LoaderIcon,
   MailQuestion,
   MailQuestionMark,
 } from "lucide-react";
@@ -94,7 +93,7 @@ export default function QuestionPending() {
   if (isLoading)
     return (
       <div className="flex w-full justify-center py-5 mt-4">
-        <LoaderIcon className="animate-spin text-zinc-400" size={18} />
+        <LoaderCircle className="animate-spin text-zinc-400" size={18} />
       </div>
     );
 
@@ -132,7 +131,7 @@ export default function QuestionPending() {
 
   return (
     <>
-      <div className="grid grid-cols-12 gap-4 mt-4">
+      <div className="grid lg:grid-cols-12 md:grid-cols-6 grid-cols-3 gap-4 mt-4">
         {data.questions.map((q: Question) => (
           <Dialog key={q.id}>
             <DialogTrigger className="group">
@@ -148,9 +147,9 @@ export default function QuestionPending() {
               <DialogHeader>
                 <DialogTitle>Pertanyaan</DialogTitle>
                 <DialogDescription>
-                  <div className="flex mt-2 justify-between items-center">
+                  <div className="flex max-sm:flex-col mt-2 max-sm:items-start max-sm:text-left max-sm:gap-3 justify-between items-center">
                     <div>
-                      <p className="font-medium text-black mb-2">Background</p>
+                      <p className="font-medium  mb-2">Background</p>
                       <div className="flex gap-4">
                         <Select
                           onValueChange={(value) =>
@@ -204,7 +203,7 @@ export default function QuestionPending() {
                       </div>
                     </div>
                     <div>
-                      <p className="font-medium text-black mb-2">Text</p>
+                      <p className="font-medium  mb-2">Text</p>
                       <div className="flex gap-4">
                         <Select
                           onValueChange={(value) =>
@@ -301,7 +300,7 @@ export default function QuestionPending() {
                   <Download size={16} />
                 </Button>
               </DialogHeader>
-              <DialogFooter className="flex justify-between items-center">
+              <DialogFooter className="flex justify-between items-center max-sm:items-end">
                 <div className="flex gap-2">
                   <Button
                     onClick={() => handleQuestionDone(q.id)}

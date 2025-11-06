@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function Footer() {
   return (
-    <div>Footer</div>
-  )
+    <footer className="text-center border border-t text-sm py-5">
+      Copyright © Galuh Satria
+    </footer>
+  );
 }

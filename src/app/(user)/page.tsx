@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Globe, Rocket } from "lucide-react";
+import { Github, Rocket } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -29,36 +29,44 @@ export default function Home() {
               variant={"secondary"}
               size={"lg"}
             >
-              Discover <Globe size={16} />
+              Github <Github size={16} />
             </Button>
           </Link>
         </div>
       </div>
 
       <div className="grid grid-cols-4 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4 mb-10 mt-16 ">
-        <div className="bg-card rounded-md p-4">
-          <div className="bg-secondary rounded-md p-3 w-max">⚡</div>
+        <div className="dark:bg-card bg-zinc-100 rounded-md p-4">
+          <div className="dark:bg-secondary bg-zinc-200 rounded-md p-3 w-max">
+            ⚡
+          </div>
           <p className="font-medium mt-4 text-lg">Gratis</p>
           <p className="text-sm text-muted-foreground mt-1">
             Dapat digunakan secara gratis dan tanpa batas
           </p>
         </div>
-        <div className="bg-card rounded-md p-4">
-          <div className="bg-secondary rounded-md p-3 w-max">🔗</div>
+        <div className="dark:bg-card bg-zinc-100 rounded-md p-4">
+          <div className="dark:bg-secondary bg-zinc-200 rounded-md p-3 w-max">
+            🔗
+          </div>
           <p className="font-medium mt-4 text-lg">Mudah</p>
           <p className="text-sm text-muted-foreground mt-1">
             Bagikan tautan akun anda dengan mudah
           </p>
         </div>
-        <div className="bg-card rounded-md p-4">
-          <div className="bg-secondary rounded-md p-3 w-max">🔐</div>
+        <div className="dark:bg-card bg-zinc-100 rounded-md p-4">
+          <div className="dark:bg-secondary bg-zinc-200 rounded-md p-3 w-max">
+            🔐
+          </div>
           <p className="font-medium mt-4 text-lg">Aman</p>
           <p className="text-sm text-muted-foreground mt-1">
             Semua pertanyaan yang dikumpulkan secara aman
           </p>
         </div>
-        <div className="bg-card rounded-md p-4">
-          <div className="bg-secondary rounded-md p-3 w-max">🌐</div>
+        <div className="dark:bg-card bg-zinc-100 rounded-md p-4">
+          <div className="dark:bg-secondary bg-zinc-200 rounded-md p-3 w-max">
+            🌐
+          </div>
           <p className="font-medium mt-4 text-lg">Open Source</p>
           <p className="text-sm text-muted-foreground mt-1">
             Dibangun dengan kode terbuka dan dapat diakses oleh siapa saja.

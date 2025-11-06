@@ -57,8 +57,8 @@ export default function QuestionForm({ userId }: { userId: string }) {
           {...register("question", {
             required: true,
             minLength: {
-              value: 50,
-              message: "Pertanyaan minimal 50 karakter",
+              value: 20,
+              message: "Pertanyaan minimal 20 karakter",
             },
           })}
           className="w-full p-2 border rounded h-32 mt-2"
@@ -72,7 +72,7 @@ export default function QuestionForm({ userId }: { userId: string }) {
         <Button
           type="submit"
           disabled={isSubmitting || !isValid}
-          className="mt-4 bg-accent rounded-full w-full"
+          className="mt-4 bg-accent rounded-full w-full dark:text-white"
           size={"lg"}
         >
           <Send /> {isSubmitting ? "Mengirim..." : "Kirim Pesan"}

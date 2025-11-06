@@ -1,13 +1,12 @@
 "use client";
 
+import Logo from "@/components/Logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
-import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -19,7 +18,6 @@ type UserLogin = {
 };
 
 export default function Page() {
-  const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const {
@@ -60,22 +58,7 @@ export default function Page() {
     <div className="flex items-center justify-center w-full h-screen">
       <div className="w-full p-4">
         <div className="max-w-96 mx-auto w-full">
-          <Link href={"/"} className="flex gap-1">
-            <Image
-              src={
-                theme === "dark"
-                  ? "/monanya-logo-white.png"
-                  : "/monanya-logo-black.png"
-              }
-              width={100}
-              height={30}
-              alt="Monanya Logo"
-              unoptimized
-            />
-            <Badge className="bg-green-500/10 text-green-500 rounded-full text-xs h-max font-bold">
-              beta
-            </Badge>
-          </Link>
+          <Logo />
           <div className="text-left mt-4">
             <p className="font-bold text-xl">Login</p>
             <p className="font-medium text-muted-foreground text-sm">
@@ -139,7 +122,7 @@ export default function Page() {
                 "Login"
               )}
               {lastMethod === "email" && (
-                <Badge className="absolute border border-accent -top-2 -right-2 z-10 rounded-full bg-white text-accent">
+                <Badge className="absolute dark:text-white border border-accent -top-2 -right-2 z-10 rounded-full bg-white text-accent">
                   Terakhir
                 </Badge>
               )}
@@ -157,7 +140,7 @@ export default function Page() {
               className="relative flex-1"
             >
               {lastMethod === "google" && (
-                <Badge className="absolute -top-2 -right-2 z-10 rounded-full bg-accent">
+                <Badge className="absolute dark:text-white -top-2 -right-2 z-10 rounded-full bg-accent">
                   Terakhir
                 </Badge>
               )}
@@ -193,7 +176,7 @@ export default function Page() {
               className="relative flex-1"
             >
               {lastMethod === "github" && (
-                <Badge className="absolute -top-2 -right-2 z-10">
+                <Badge className="absolute dark:text-white -top-2 -right-2 z-10">
                   Terakhir used
                 </Badge>
               )}

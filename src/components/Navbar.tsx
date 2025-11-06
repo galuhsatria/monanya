@@ -12,7 +12,6 @@ import {
 import { authClient } from "@/lib/auth-client";
 import {
   CircleQuestionMark,
-  Compass,
   ImageIcon,
   LogOutIcon,
   Moon,
@@ -20,11 +19,9 @@ import {
   UserRound,
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { Badge } from "./ui/badge";
+import Logo from "./Logo";
 import { Button } from "./ui/button";
 
 type Session = typeof authClient.$Infer.Session;
@@ -46,22 +43,7 @@ export default function Navbar({ session }: SessionProps) {
   return (
     <header className="border-b border-border">
       <nav className="layout py-4 flex justify-between items-center">
-        <div className="flex gap-1">
-          <Image
-            src={
-              theme === "dark"
-                ? "/monanya-logo-white.png"
-                : "/monanya-logo-black.png"
-            }
-            width={100}
-            height={30}
-            alt="Monanya Logo"
-            unoptimized
-          />
-          <Badge className="bg-green-500/10 text-green-500 rounded-full text-xs h-max font-bold">
-            beta
-          </Badge>
-        </div>
+        <Logo />
 
         <div className="flex items-center gap-4">
           {/*<Link href="/discover">
@@ -142,11 +124,11 @@ export default function Navbar({ session }: SessionProps) {
                     <CircleQuestionMark /> Pertanyaan
                   </DropdownMenuItem>
                 </Link>
-                <Link href="/">
+                {/*<Link href="/">
                   <DropdownMenuItem className="flex items-center gap-3 cursor-pointer">
                     <ImageIcon /> Pengaturan OG
                   </DropdownMenuItem>
-                </Link>
+                </Link>*/}
 
                 <DropdownMenuItem
                   className="flex items-center gap-3 cursor-pointer my-1 group hover:!text-red-500 transition-colors duration-200"
