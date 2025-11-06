@@ -38,14 +38,6 @@ export default function Page() {
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
-  const {
-    register: registerPassword,
-    handleSubmit: handleSubmitPassword,
-    watch: watchPassword,
-    reset: resetPassword,
-    formState: { isSubmitting: isSubmittingPassword },
-  } = useForm<PasswordInputs>();
-
   if (isPending || !session) {
     return (
       <div className="flex justify-center items-center h-64 min-h-[100vh]">
