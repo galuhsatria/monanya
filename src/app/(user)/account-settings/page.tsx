@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
-import { toast } from "sonner";
+import PasswordForm from "@/components/PasswordForm";
+import PersonalForm from "@/components/PersonalForm";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,8 +13,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { headers } from "next/headers";
-import PasswordForm from "@/components/PasswordForm";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type Inputs = {
   name: string;
@@ -63,47 +63,7 @@ export default function Page() {
     <div className="layout my-8 min-h-[100vh]">
       <p className="text-2xl font-bold">Pengaturan Akun</p>
 
-      <div className="border rounded-md mt-4 p-4">
-        <p className="text-lg font-bold mb-3">Informasi Personal</p>
-
-        <form className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-full flex flex-col gap-2">
-              <p>Nama</p>
-              <Input
-                {...register("name")}
-                placeholder="Nama Anda"
-                defaultValue={session.user.name}
-              />
-            </div>
-            <div className="w-full flex flex-col gap-2">
-              <p>Username</p>
-              <Input
-                {...register("username")}
-                placeholder="Username Anda"
-                defaultValue={session.user.username || ""}
-              />
-            </div>
-          </div>
-
-          <Button
-            type="submit"
-            disabled={!isChanged || isSubmitting}
-            className="w-max bg-accent dark:text-white"
-          >
-            {isSubmitting ? "Menyimpan..." : "Simpan"}
-          </Button>
-        </form>
-
-        <div className="w-full flex flex-col gap-2 mt-4">
-          <p>Email</p>
-          <Input
-            defaultValue={session.user.email}
-            disabled
-            className="bg-secondary"
-          />
-        </div>
-      </div>
+      <PersonalForm />
 
       <PasswordForm />
 

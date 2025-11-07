@@ -12,7 +12,6 @@ import {
 import { authClient } from "@/lib/auth-client";
 import {
   CircleQuestionMark,
-  ImageIcon,
   LogOutIcon,
   Moon,
   Sun,

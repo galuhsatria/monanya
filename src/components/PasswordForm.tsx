@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 
-type PasswordInputs = {
+type Password = {
   currentPassword?: string;
   newPassword: string;
 };
@@ -29,7 +29,7 @@ export default function PasswordForm() {
     reset,
     watch,
     formState: { isSubmitting },
-  } = useForm<PasswordInputs>();
+  } = useForm<Password>();
 
   const currentPassword = watch("currentPassword");
   const newPassword = watch("newPassword");
@@ -40,7 +40,10 @@ export default function PasswordForm() {
     const checkPasswordStatus = async () => {
       try {
         const res = await fetch("/api/check-password-status");
-        const data = await res.json();
+        const data = (await res.json()) as {
+          hasPassword: boolean;
+        };
+
         setIsPasswordSet(data.hasPassword);
       } catch (err) {
         console.error("Error checking password status:", err);
@@ -50,7 +53,7 @@ export default function PasswordForm() {
     checkPasswordStatus();
   }, [session]);
 
-  const onSubmit: SubmitHandler<PasswordInputs> = async (password) => {
+  const onSubmit: SubmitHandler<Password> = async (password) => {
     try {
       if (isPasswordSet) {
         const { data, error } = await authClient.changePassword({

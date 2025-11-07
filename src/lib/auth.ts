@@ -9,6 +9,8 @@ import * as schema from "../db/schema";
 import { username, lastLoginMethod } from "better-auth/plugins";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { user as users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -56,10 +58,29 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user, ctx) => {
+          const baseUsername = user.email.split("@")[0];
+          let username = baseUsername;
+          let counter = 1;
+
+          while (true) {
+            const existingUser = await db
+              .select()
+              .from(users)
+              .where(eq(users.username, username))
+              .limit(1);
+
+            if (existingUser.length === 0) {
+              break;
+            }
+
+            username = `${baseUsername}${counter}`;
+            counter++;
+          }
+
           return {
             data: {
               ...user,
-              username: user.email.split("@")[0],
+              username: username,
             },
           };
         },

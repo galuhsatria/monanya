@@ -1,10 +1,15 @@
-import { auth } from "@/lib/auth";
+import { auth, getCurrentUser } from "@/lib/auth";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { newPassword } = await request.json();
+    const user = await getCurrentUser();
+    if (!user) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { newPassword } = (await request.json()) as { newPassword: string };
 
     await auth.api.setPassword({
       body: { newPassword },
