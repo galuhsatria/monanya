@@ -27,8 +27,8 @@ function ResetPasswordRequest({ url, name }: ResetPasswordProps) {
         <Container style={container}>
           <Img
             src={process.env.NEXT_PUBLIC_BASE_URL + `/monanya-logo-black.png`}
-            width="40"
-            height="33"
+            width="100"
+            height="30"
             alt="Monanya"
           />
           <Section>
@@ -96,7 +96,7 @@ export const sendingResetPassword = async ({
   const options = {
     from: process.env.SMTP_USER,
     to: email,
-    subject: "Email Verification",
+    subject: "Reset Password",
     html: resetPasswordHtml,
   };
 

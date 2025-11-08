@@ -27,8 +27,8 @@ function EmailVerificationRequest({ url, name }: EmailVerificationProps) {
         <Container style={container}>
           <Img
             src={process.env.NEXT_PUBLIC_BASE_URL + `/monanya-logo-black.png`}
-            width="40"
-            height="33"
+            width="100"
+            height="30"
             alt="Monanya"
           />
           <Section>

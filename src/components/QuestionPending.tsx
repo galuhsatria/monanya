@@ -39,7 +39,9 @@ interface Question {
 }
 
 export default function QuestionPending() {
-  const { data, isError, isLoading } = useQuestion({ status: "pending" });
+  const { data, isError, isLoading, mutate } = useQuestion({
+    status: "pending",
+  });
   const [questionIsDoneLoading, setQuestionIsDoneLoading] = useState(false);
   const { data: session } = authClient.useSession();
   console.log(session);
@@ -81,7 +83,7 @@ export default function QuestionPending() {
 
       if (res.ok) {
         toast.success("Pertanyaan sudah dijawab");
-        window.location.reload();
+        mutate();
       }
     } catch {
       toast.error("Gagal menandai pertanyaan sudah dijawab");
@@ -145,7 +147,9 @@ export default function QuestionPending() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Pertanyaan</DialogTitle>
+                <DialogTitle className="max-sm:text-left">
+                  Pertanyaan
+                </DialogTitle>
                 <DialogDescription>
                   <div className="flex max-sm:flex-col mt-2 max-sm:items-start max-sm:text-left max-sm:gap-3 justify-between items-center">
                     <div>
