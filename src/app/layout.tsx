@@ -20,6 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="784b41f6-2b1f-4498-bc45-1a3c0f9a9300"
+        ></script>
+      </head>
       <body className={`${manrope.className} antialiased`}>
         <ThemeProvider
           attribute="class"

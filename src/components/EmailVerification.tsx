@@ -6,19 +6,24 @@ interface EmailTemplateProps {
 export default function EmailVerification({ url }: EmailTemplateProps) {
   return (
     <div>
-      <img src="../../public/monanya-logo-black.png" width="100" height="30" alt="Monanya Logo" />
+      <img
+        src={process.env.NEXT_PUBLIC_BASE_URL + "/monanya-logo-black.png"}
+        width="100"
+        height="30"
+        alt="Monanya Logo"
+      />
       <p>Halo, Selamat datang di Monanya!</p>
       <p>Klik tombol di bawah untuk aktifasi akun kamu:</p>
       <a
         href={url}
         style={{
-          display: 'inline-block',
-          backgroundColor: '#000',
-          color: '#fff',
-          padding: '10px 20px',
-          borderRadius: '6px',
-          textDecoration: 'none',
-          fontWeight: 'bold',
+          display: "inline-block",
+          backgroundColor: "#000",
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: "6px",
+          textDecoration: "none",
+          fontWeight: "bold",
         }}
       >
         Aktifasi Akun
