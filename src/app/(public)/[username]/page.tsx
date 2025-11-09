@@ -1,4 +1,5 @@
 import QuestionForm from "@/components/QuestionForm";
+import ReportUser from "@/components/ReportUser";
 import { Button } from "@/components/ui/button";
 import UserNav from "@/components/UserNav";
 import { User } from "@/lib/db/queries";
@@ -58,9 +59,7 @@ export default async function Page({
         </Button>
       </Link>
       <div className="flex text-sm mt-3 gap-1 items-center justify-center text-muted-foreground">
-        <Link href="/report-user" className="hover:text-accent">
-          Laporkan Pengguna
-        </Link>
+        <ReportUser email={user.email} name={user.name} />
         <Dot />
         <Link href="/privasi" className="hover:text-accent">
           Privasi

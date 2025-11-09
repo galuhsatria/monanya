@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { account, questions, user } from "@/db/schema";
+import { account, questions, report, user } from "@/db/schema";
 import { and, eq, inArray } from "drizzle-orm";
 
 export type Question = typeof questions.$inferSelect;
@@ -120,9 +120,22 @@ export const User = {
 
   async getUserByUsername(username: string) {
     const result = await db
-      .select({ id: user.id, name: user.name, image: user.image })
+      .select({
+        id: user.id,
+        name: user.name,
+        image: user.image,
+        email: user.email,
+      })
       .from(user)
       .where(eq(user.username, username));
+    return result[0];
+  },
+
+  async reportUser(name: string, email: string, reason: string) {
+    const result = await db
+      .insert(report)
+      .values({ name, email, reason })
+      .returning();
     return result[0];
   },
 };
