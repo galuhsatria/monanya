@@ -10,13 +10,13 @@ export default function NotFound() {
           404
         </span>
         <h2 className="font-medium text-lg">Not Found</h2>
-        <p className="text-zinc-600 text-sm my-2">
+        <p className="text-zinc-400 text-sm my-2">
           Halaman yang anda cari tidak ditemukan
         </p>
         <Link href="/">
           <Button
             variant={"link"}
-            className="flex items-center gap-1 text-zinc-600"
+            className="flex items-center gap-1 text-zinc-400"
           >
             Beranda <ArrowUpRight />
           </Button>

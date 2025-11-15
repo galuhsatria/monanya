@@ -9,8 +9,62 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Monanya",
-  description: "Sebuah platform untuk mengirim pertanyaan secara anonimus",
+  metadataBase: new URL("https://monanya.vercel.app"),
+
+  title: {
+    default: "Monanya",
+    template: "%s | Monanya",
+  },
+
+  description:
+    "Monanya adalah platform untuk mengirim dan menerima pertanyaan secara anonim dengan mudah, cepat, dan aman.",
+
+  keywords: [
+    "monanya",
+    "anonim",
+    "anonymous questions",
+    "ngirim pertanyaan",
+    "platform anonim",
+    "tanya jawab anonim",
+  ],
+
+  authors: [{ name: "Monanya Team" }],
+  creator: "Monanya",
+  publisher: "Monanya",
+
+  openGraph: {
+    type: "website",
+    url: "https://monanya.vercel.app",
+    title: "Monanya — Dapatkan pertanyaan anonim",
+    description:
+      "Kirim dan dapatkan pertanyaan anonim dengan mudah. Bebas ekspresikan pikiranmu tanpa identitas.",
+    siteName: "Monanya",
+    images: [
+      {
+        url: "https://monanya.vercel.app/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Monanya OpenGraph",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Monanya — Platform Pertanyaan Anonim",
+    description:
+      "Kirim dan dapatkan pertanyaan anonim. Bebas ekspresikan pikiranmu tanpa identitas.",
+    images: ["/opengraph-image"],
+    creator: "@monanya",
+  },
+
+  // icons: {
+  //   icon: "/favicon.ico",
+  //   shortcut: "/favicon.ico",
+  //   apple: "/apple-touch-icon.png",
+  // },
+
+  // manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

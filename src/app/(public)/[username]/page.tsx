@@ -7,12 +7,54 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-export default async function Page({
-  params,
-}: {
+type Props = {
   params: Promise<{ username: string }>;
-}) {
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = await params;
+  const user = await User.getUserByUsername(username);
+
+  if (!user) {
+    return {
+      title: "User Not Found",
+    };
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const ogImageUrl = `${baseUrl}/api/og?username=${encodeURIComponent(username)}`;
+
+  return {
+    title: `${user.name} (@${username}) - Monanya`,
+    description: `Kirim pertanyaan anonim ke ${user.name} di Monanya`,
+    openGraph: {
+      title: `${user.name} (@${username}) - Monanya`,
+      description: `Kirim pertanyaan anonim ke ${user.name}`,
+      url: `${baseUrl}/${username}`,
+      siteName: "Monanya",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${user.name} - Monanya`,
+        },
+      ],
+      locale: "id_ID",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${user.name} (@${username}) - Monanya`,
+      description: `Kirim pertanyaan anonim ke ${user.name}`,
+      images: [ogImageUrl],
+    },
+  };
+}
+
+export default async function Page({ params }: Props) {
   const { username } = await params;
   const user = await User.getUserByUsername(username);
 
