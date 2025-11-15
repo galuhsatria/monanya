@@ -1,11 +1,27 @@
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+    <div className="w-full h-screen flex justify-center items-center">
+      <div className="flex flex-col items-center">
+        <span className="bg-secondary p-2 rounded-md mb-2 font-medium">
+          404
+        </span>
+        <h2 className="font-medium text-lg">Not Found</h2>
+        <p className="text-zinc-600 text-sm my-2">
+          Halaman yang anda cari tidak ditemukan
+        </p>
+        <Link href="/">
+          <Button
+            variant={"link"}
+            className="flex items-center gap-1 text-zinc-600"
+          >
+            Beranda <ArrowUpRight />
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
