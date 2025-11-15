@@ -7,6 +7,7 @@ export const report = pgTable("report", {
     .$defaultFn(() => randomUUID()),
   name: text("name").notNull(),
   email: text("email").notNull(),
+  createdAt: timestamp("created_at")
     .$defaultFn(() => new Date())
     .notNull(),
   updatedAt: timestamp("updated_at")
