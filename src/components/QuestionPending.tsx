@@ -194,7 +194,7 @@ export default function QuestionPending() {
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-sm:w-11/12 sm:w-max">
               <DialogHeader className="sticky top-0 z-10">
                 <DialogTitle className="max-sm:text-left">
                   Pertanyaan
