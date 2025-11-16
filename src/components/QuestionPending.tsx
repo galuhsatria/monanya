@@ -25,18 +25,24 @@ import {
   LoaderCircle,
   MailQuestion,
   MailQuestionMark,
+  RectangleHorizontal,
+  RectangleVertical,
+  Square,
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { CopyButton } from "./CopyButton";
 import { Button } from "./ui/button";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface Question {
   id: string;
   question: string;
   status: string;
 }
+
+type AspectRatio = "9:16" | "16:9" | "1:1";
 
 export default function QuestionPending() {
   const { data, isError, isLoading, mutate } = useQuestion({
@@ -51,18 +57,50 @@ export default function QuestionPending() {
     color: "#222222",
     font: "Inter",
     pattern: "Polkadot",
+    aspectRatio: "16:9" as AspectRatio,
   });
 
   const refs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  const getAspectRatioSize = (ratio: AspectRatio) => {
+    const baseSize = 1080;
+    switch (ratio) {
+      case "9:16":
+        return { width: 1080, height: 1920 };
+      case "16:9":
+        return { width: 1920, height: 1080 };
+      case "1:1":
+        return { width: baseSize, height: baseSize };
+    }
+  };
 
   const handleDownloadImage = async (q: Question) => {
     const node = refs.current[q.id];
     if (!node) return;
 
     try {
-      const dataUrl = await htmlToImage.toPng(node, { quality: 1.0 });
+      const { width, height } = getAspectRatioSize(theme.aspectRatio);
+
+      const currentWidth = node.offsetWidth;
+      const currentHeight = node.offsetHeight;
+      const scaleX = width / currentWidth;
+      const scaleY = height / currentHeight;
+
+      const dataUrl = await htmlToImage.toPng(node, {
+        quality: 1.0,
+        pixelRatio: 1,
+        width: width,
+        height: height,
+        style: {
+          transform: `scale(${scaleX}, ${scaleY})`,
+          transformOrigin: "top left",
+          width: `${currentWidth}px`,
+          height: `${currentHeight}px`,
+        },
+      });
+
       const link = document.createElement("a");
-      link.download = `pertanyaan-${q.id}.png`;
+      link.download = `pertanyaan-${q.id}-${theme.aspectRatio.replace(":", "x")}.png`;
       link.href = dataUrl;
       link.click();
     } catch (error) {
@@ -89,6 +127,17 @@ export default function QuestionPending() {
       toast.error("Gagal menandai pertanyaan sudah dijawab");
     } finally {
       setQuestionIsDoneLoading(false);
+    }
+  };
+
+  const getContainerClass = (ratio: AspectRatio) => {
+    switch (ratio) {
+      case "9:16":
+        return "aspect-[9/16] w-[300px]";
+      case "16:9":
+        return "aspect-[16/9] w-full max-w-[500px]";
+      case "1:1":
+        return "aspect-square w-full max-w-[400px]";
     }
   };
 
@@ -145,16 +194,16 @@ export default function QuestionPending() {
                 />
               </div>
             </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader className="sticky top-0 z-10">
                 <DialogTitle className="max-sm:text-left">
                   Pertanyaan
                 </DialogTitle>
                 <DialogDescription>
-                  <div className="flex max-sm:flex-col mt-2 max-sm:items-start max-sm:text-left max-sm:gap-3 justify-between items-center">
+                  <div className="flex gap-2 max-sm:flex-col mt-2 max-sm:items-start max-sm:text-left max-sm:gap-3 justify-between items-start">
                     <div>
-                      <p className="font-medium  mb-2">Background</p>
-                      <div className="flex gap-4">
+                      <p className="font-medium mb-2">Background</p>
+                      <div className="flex gap-2">
                         <Select
                           onValueChange={(value) =>
                             setTheme((prev) => ({
@@ -194,7 +243,7 @@ export default function QuestionPending() {
                             setTheme((prev) => ({ ...prev, pattern: value }))
                           }
                         >
-                          <SelectTrigger className="w-[130px]">
+                          <SelectTrigger className="w-[70px] max-sm:w-[150px]">
                             <SelectValue placeholder="Pola" />
                           </SelectTrigger>
                           <SelectContent>
@@ -204,11 +253,35 @@ export default function QuestionPending() {
                             <SelectItem value="Plain">Polos</SelectItem>
                           </SelectContent>
                         </Select>
+
+                        <Select
+                          onValueChange={(value: AspectRatio) =>
+                            setTheme((prev) => ({
+                              ...prev,
+                              aspectRatio: value,
+                            }))
+                          }
+                        >
+                          <SelectTrigger className="w-max">
+                            <SelectValue placeholder="Rasio" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1:1">
+                              <Square />
+                            </SelectItem>
+                            <SelectItem value="9:16">
+                              <RectangleVertical />
+                            </SelectItem>
+                            <SelectItem value="16:9">
+                              <RectangleHorizontal />
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                     <div>
-                      <p className="font-medium  mb-2">Text</p>
-                      <div className="flex gap-4">
+                      <p className="font-medium mb-2">Text</p>
+                      <div className="flex gap-2">
                         <Select
                           onValueChange={(value) =>
                             setTheme((prev) => ({ ...prev, font: value }))
@@ -251,11 +324,15 @@ export default function QuestionPending() {
                       </div>
                     </div>
                   </div>
-
+                </DialogDescription>
+              </DialogHeader>
+              <ScrollArea className="max-h-[320px]">
+                <div className="flex justify-center mt-4 overflow-auto">
                   <div
                     ref={(el) => {
                       refs.current[q.id] = el;
                     }}
+                    className={`${getContainerClass(theme.aspectRatio)} rounded-md`}
                     style={{
                       backgroundColor: theme.backgroundColor,
                       color: theme.color,
@@ -275,35 +352,32 @@ export default function QuestionPending() {
                             ? "15px 15px"
                             : "auto",
                       padding: "16px",
-                      borderRadius: "10px",
-                      border: "1px solid #e2e8f0",
-                      width: "100%",
-                      marginTop: "8px",
                     }}
-                    className="text-sm max-w-full wrap-anywhere whitespace-pre-line flex flex-col justify-center items-center text-center min-h-60"
                   >
-                    <p className="font-medium">{q.question}</p>
-                    <div className="flex bg-white gap-1 mx-auto mt-4 px-3 py-1 rounded-full w-max border shadow">
-                      <Image
-                        src={"/monanya-logo-black.png"}
-                        width={50}
-                        height={30}
-                        alt="Monanya Logo"
-                        unoptimized
-                      />
+                    <div className="text-sm wrap-anywhere whitespace-pre-line flex flex-col justify-center items-center text-center h-full px-4">
+                      <p className="font-medium">{q.question}</p>
+                      <div className="flex bg-white gap-1 mx-auto mt-4 px-3 py-1 rounded-full w-max border shadow">
+                        <Image
+                          src={"/monanya-logo-black.png"}
+                          width={50}
+                          height={30}
+                          alt="Monanya Logo"
+                          unoptimized
+                        />
+                      </div>
                     </div>
                   </div>
-                </DialogDescription>
-                <Button
-                  variant="outline"
-                  className="w-max"
-                  onClick={() => handleDownloadImage(q)}
-                  title="Download pertanyaan sebagai gambar"
-                >
-                  Download
-                  <Download size={16} />
-                </Button>
-              </DialogHeader>
+                </div>
+              </ScrollArea>
+              <Button
+                variant="outline"
+                className="w-max"
+                onClick={() => handleDownloadImage(q)}
+                title="Download pertanyaan sebagai gambar"
+              >
+                Download
+                <Download size={16} />
+              </Button>
               <DialogFooter className="flex justify-between items-center max-sm:items-end">
                 <div className="flex gap-2">
                   <Button
