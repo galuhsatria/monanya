@@ -11,8 +11,8 @@ export default function Home() {
           <span className="text-accent">100% anonim</span>
         </h1>
         <p className="text-lg max-sm:text-base font-medium text-muted-foreground mt-3 mb-4">
-          Buat link Anda, bagikan, dan lihat pertanyaan anonim masuk dengan
-          mudah
+          Berikan kesempatan bertanya atau memberikan pesan secara bebas tanpa
+          identitas.
         </p>
         <div className="flex gap-3 mt-4">
           <Link href="/signup">
@@ -23,7 +23,7 @@ export default function Home() {
               Get Started <Rocket size={16} />
             </Button>
           </Link>
-          <Link href="/login">
+          <Link href="https://github.com/galuhsatria/monanya">
             <Button
               className="min-w-28 rounded-full"
               variant={"secondary"}
