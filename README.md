@@ -1,6 +1,7 @@
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/2e2042c9-71e1-4dba-b1f6-d0bb74c1822b" />
 
-Monanya is a platform for sending anonymous messages or questions to someone
+Monanya is a platform for sending anonymous messages or questions to someone. I made this project inspired by https://www.tanyaaja.in and to learn and hone my skills in website development using modern techstacks.
+
 
 ### Techstack
 - Next Js
