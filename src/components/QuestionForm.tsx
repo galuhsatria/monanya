@@ -20,7 +20,7 @@ export default function QuestionForm({ userId }: { userId: string }) {
 
   const onSubmit: SubmitHandler<Question> = async (data) => {
     try {
-      const question = await fetch(
+      const response = await fetch(
         process.env.NEXT_PUBLIC_BASE_URL + "/api/questions",
         {
           method: "POST",
@@ -34,16 +34,24 @@ export default function QuestionForm({ userId }: { userId: string }) {
         },
       );
 
-      if (!question.ok) {
-        throw new Error("Failed to submit question");
-      } else {
-        toast.success("Pertanyaan berhasil dikirim!");
+      const result = (await response.json()) as {
+        success?: boolean;
+        error?: string;
+        message?: string;
+      };
+
+      if (!response.ok) {
+        toast.error(
+          result.error || result.message || "Gagal mengirim pertanyaan",
+        );
+        return;
       }
 
+      toast.success("Pertanyaan berhasil dikirim!");
       reset();
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       toast.error("Gagal mengirim pertanyaan. Silakan coba lagi.");
-      console.error(err);
     }
   };
 
