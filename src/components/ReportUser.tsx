@@ -62,23 +62,24 @@ export default function ReportUser({
   return (
     <Dialog>
       <DialogTrigger>
-        <p className="hover:text-accent">Laporkan Pengguna</p>
+        <p className="hover:text-accent cursor-pointer">Laporkan Pengguna</p>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
             <DialogTitle>Laporkan Pengguna</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="mb-4 mt-2">
               <Textarea
                 {...register("reason", { required: true })}
                 disabled={isSubmitting}
                 placeholder="Masukan alasan melaporkan pengguna"
                 rows={20}
+                className="text-black"
               />
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button type="submit" className="bg-accent">
+            <Button type="submit" className="bg-accent rounded-full">
               {isSubmitting ? (
                 <LoaderCircle size={16} className="animate-spin" />
               ) : (
