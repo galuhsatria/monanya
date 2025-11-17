@@ -78,6 +78,10 @@ Monanya is a platform for sending anonymous messages or questions to someone. I 
 
 `SMTP_USER=`
 
+**API Key Gemini**
+
+`GOOGLE_GENERATIVE_AI_API_KEY=`
+
 **Install dependencies**
 
 ```bash
@@ -89,4 +93,3 @@ Monanya is a platform for sending anonymous messages or questions to someone. I 
 ```bash
   npm run dev
 ```
-
