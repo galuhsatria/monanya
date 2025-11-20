@@ -15,7 +15,7 @@ export default function Home() {
           identitas.
         </p>
         <div className="flex gap-3 mt-4">
-          <Link href="/signup">
+          <Link href="/register">
             <Button
               className="min-w-28 bg-accent rounded-full dark:text-white"
               size={"lg"}
