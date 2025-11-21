@@ -14,12 +14,15 @@ Monanya is a platform for sending anonymous messages or questions to someone. I 
 - SWR
 - Nodemiler
 - React Hook Form
+- AI SDK
+- Gemini 2.0 Flash
 
 ### Here are the features it has:
 - Send and Receive Anonymous Messages
 - Unique Link for Each User
 - Inbox Dashboard
 - Custom Themes for Answers
+- filter bad words using AI
 
 ### Link
 - Repository: https://github.com/galuhsatria/monanya
